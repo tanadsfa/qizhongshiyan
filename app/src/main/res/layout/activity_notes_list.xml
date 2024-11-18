@@ -1,0 +1,38 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:background="@color/background_color">
+
+    <SearchView
+        android:id="@+id/search_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_search_view_background"
+        android:iconifiedByDefault="false"
+        android:queryHint="搜索笔记"
+        android:textColorHint="#4A4A4A"
+        android:padding="8dp" />
+
+
+    <!-- 排序按钮 -->
+    <Button
+        android:id="@+id/button_sort_by_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="按内容大小排序"
+        android:layout_marginTop="8dp"
+        android:background="@color/primary_dark_color"
+        android:textColor="@color/text_color" />
+
+    <!-- 列表 -->
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@color/primary_dark_color"
+        android:dividerHeight="1dp" />
+
+</LinearLayout>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/rounded_background.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <corners android:radius="8dp" /> <!-- 圆角半径 -->
+    <solid android:color="@color/primaryBackground" /> <!-- 填充颜色，与 ListView 背景一致 -->
+</shape>

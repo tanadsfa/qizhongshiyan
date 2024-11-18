@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_add"
+        android:icon="@drawable/ic_menu_compose"
+        android:title="@string/menu_add"
+        android:showAsAction="always" />
+
+    <item
+        android:id="@+id/menu_paste"
+        android:icon="@drawable/ic_menu_compose"
+        android:title="@string/menu_paste"
+        android:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_recently_opened"
+        android:title="最近打开"
+        android:showAsAction="never" />
+</menu>

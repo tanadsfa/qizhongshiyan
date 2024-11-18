@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="sort_options">
+        <item>按标题排序</item>
+        <item>按创建时间排序</item>
+        <item>按修改时间排序</item>
+    </string-array>
+</resources>

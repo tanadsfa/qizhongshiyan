@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/values/colors.xml -->
+<resources>
+    <color name="primaryBackground">#FFFFFF</color> <!-- 列表背景颜色 -->
+    <color name="primaryText">#333333</color> <!-- 列表文本颜色 -->
+    <color name="secondaryText">#777777</color> <!-- 时间戳文本颜色 -->
+    <color name="divider">#E0E0E0</color> <!-- 分隔线颜色 -->
+    <color name="primary_color">#3F51B5</color>
+    <color name="primary_dark_color">#303F9F</color>
+    <color name="accent_color">#FF4081</color>
+    <color name="background_color">#FFFFFF</color>
+    <color name="text_color">#000000</color>
+    <color name="windowBackground">#FFFFFF</color>
+    <color name="textColor">#000000</color>
+    <color name="backgroundFloating">#F5F5F5</color>
+    <color name="hint_text_color">#555555</color>
+
+</resources>
+

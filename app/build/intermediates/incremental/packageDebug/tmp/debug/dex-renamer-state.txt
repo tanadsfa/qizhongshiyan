@@ -1,0 +1,4 @@
+#Tue Nov 19 08:55:42 HKT 2024
+base.0=D\:\\NotePad_new\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+renamed.0=classes.dex
+path.0=classes.dex
