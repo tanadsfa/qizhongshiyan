@@ -8,13 +8,14 @@ com/example/android/notepad/NotePad.java
  com.example.android.notepad.NotePad$Notes
 com/example/android/notepad/TitleEditor.java
  com.example.android.notepad.TitleEditor
-com/example/android/notepad/NoteEditor.java
- com.example.android.notepad.NoteEditor
- com.example.android.notepad.NoteEditor$LinedEditText
-com/example/android/notepad/NotesLiveFolder.java
- com.example.android.notepad.NotesLiveFolder
 com/example/android/notepad/NotesList.java
  com.example.android.notepad.NotesList
  com.example.android.notepad.NotesList$1
  com.example.android.notepad.NotesList$2
  com.example.android.notepad.NotesList$3
+com/example/android/notepad/NotesLiveFolder.java
+ com.example.android.notepad.NotesLiveFolder
+com/example/android/notepad/NoteEditor.java
+ com.example.android.notepad.NoteEditor
+ com.example.android.notepad.NoteEditor$1
+ com.example.android.notepad.NoteEditor$LinedEditText

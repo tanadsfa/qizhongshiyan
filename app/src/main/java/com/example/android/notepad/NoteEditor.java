@@ -632,20 +632,24 @@ public class NoteEditor extends Activity {
     }
 
     private void showColorPickerDialog() {
+        // 颜色代码和中文描述
         final String[] colors = {"#FFFFFF", "#FFEBEE", "#E3F2FD", "#E8F5E9", "#FFFDE7", "#F3E5F5"};
+        final String[] colorNames = {"白色", "浅红色", "浅蓝色", "浅绿色", "浅黄色", "浅紫色"};
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("选择背景颜色");
 
-        builder.setItems(colors, new DialogInterface.OnClickListener() {
+        builder.setItems(colorNames, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String selectedColor = colors[which];
+                String selectedColor = colors[which]; // 根据选择的名称获取对应颜色代码
                 saveBackgroundColor(selectedColor);
                 loadBackgroundColor(); // 更新背景颜色
             }
         });
         builder.create().show();
     }
+
 
     private void saveBackgroundColor(String color) {
         SharedPreferences.Editor editor = sharedPreferences.edit();

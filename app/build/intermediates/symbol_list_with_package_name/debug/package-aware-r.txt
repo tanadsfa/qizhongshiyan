@@ -505,6 +505,7 @@ id menu_paste
 id menu_recently_opened
 id menu_revert
 id menu_save
+id menu_set_background_color
 id middle
 id multiply
 id never

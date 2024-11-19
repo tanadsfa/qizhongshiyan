@@ -504,6 +504,7 @@ int id menu_paste 0x7f080034
 int id menu_recently_opened 0x7f080035
 int id menu_revert 0x7f080036
 int id menu_save 0x7f080037
+int id menu_set_background_color 0x7f080068
 int id middle 0x7f080038
 int id multiply 0x7f080039
 int id never 0x7f08003a
