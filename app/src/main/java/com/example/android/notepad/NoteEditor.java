@@ -17,16 +17,20 @@
 package com.example.android.notepad;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.net.Uri;
@@ -36,6 +40,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 
 /**
@@ -77,6 +82,10 @@ public class NoteEditor extends Activity {
     private Cursor mCursor;
     private EditText mText;
     private String mOriginalContent;
+
+    private SharedPreferences sharedPreferences;
+    private static final String PREF_NAME = "NotePadPreferences"; // SharedPreferences 文件名
+    private View noteView; // 用于动态修改背景的视图
 
     /**
      * Defines a custom EditText View that draws lines between each line of text that is displayed.
@@ -139,6 +148,9 @@ public class NoteEditor extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // 初始化 SharedPreferences
+        sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+
         /*
          * Creates an Intent to use when the Activity object's result is sent back to the
          * caller.
@@ -187,7 +199,7 @@ public class NoteEditor extends Activity {
             // set the result to be returned.
             setResult(RESULT_OK, (new Intent()).setAction(mUri.toString()));
 
-        // If the action was other than EDIT or INSERT:
+            // If the action was other than EDIT or INSERT:
         } else {
 
             // Logs an error that the action was not understood, finishes the Activity, and
@@ -200,25 +212,18 @@ public class NoteEditor extends Activity {
         /*
          * Using the URI passed in with the triggering Intent, gets the note or notes in
          * the provider.
-         * Note: This is being done on the UI thread. It will block the thread until the query
-         * completes. In a sample app, going against a simple provider based on a local database,
-         * the block will be momentary, but in a real app you should use
-         * android.content.AsyncQueryHandler or android.os.AsyncTask.
          */
         mCursor = managedQuery(
-            mUri,         // The URI that gets multiple notes from the provider.
-            PROJECTION,   // A projection that returns the note ID and note content for each note.
-            null,         // No "where" clause selection criteria.
-            null,         // No "where" clause selection values.
-            null          // Use the default sort order (modification date, descending)
+                mUri,         // The URI that gets multiple notes from the provider.
+                PROJECTION,   // A projection that returns the note ID and note content for each note.
+                null,         // No "where" clause selection criteria.
+                null,         // No "where" clause selection values.
+                null          // Use the default sort order (modification date, descending)
         );
 
         // For a paste, initializes the data from clipboard.
-        // (Must be done after mCursor is initialized.)
         if (Intent.ACTION_PASTE.equals(action)) {
-            // Does the paste
             performPaste();
-            // Switches the state to EDIT so the title can be modified.
             mState = STATE_EDIT;
         }
 
@@ -228,6 +233,9 @@ public class NoteEditor extends Activity {
         // Gets a handle to the EditText in the the layout.
         mText = (EditText) findViewById(R.id.note);
 
+        // **加载背景颜色**
+        loadBackgroundColor();
+
         /*
          * If this Activity had stopped previously, its state was written the ORIGINAL_CONTENT
          * location in the saved Instance state. This gets the state.
@@ -236,6 +244,11 @@ public class NoteEditor extends Activity {
             mOriginalContent = savedInstanceState.getString(ORIGINAL_CONTENT);
         }
     }
+    private void loadBackgroundColor() {
+        String color = sharedPreferences.getString("note_background_color", "#FFFFFF"); // 默认白色
+        mText.setBackgroundColor(Color.parseColor(color));
+    }
+
 
     /**
      * This method is called when the Activity is about to come to the foreground. This happens
@@ -445,7 +458,11 @@ public class NoteEditor extends Activity {
         case R.id.menu_revert:
             cancelNote();
             break;
-        }
+
+        case R.id.menu_set_background_color:
+        showColorPickerDialog();
+        return true;
+    }
         return super.onOptionsItemSelected(item);
     }
 
@@ -613,4 +630,28 @@ public class NoteEditor extends Activity {
             mText.setText("");
         }
     }
+
+    private void showColorPickerDialog() {
+        final String[] colors = {"#FFFFFF", "#FFEBEE", "#E3F2FD", "#E8F5E9", "#FFFDE7", "#F3E5F5"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("选择背景颜色");
+
+        builder.setItems(colors, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String selectedColor = colors[which];
+                saveBackgroundColor(selectedColor);
+                loadBackgroundColor(); // 更新背景颜色
+            }
+        });
+        builder.create().show();
+    }
+
+    private void saveBackgroundColor(String color) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("note_background_color", color);
+        editor.apply();
+    }
+
+
 }
