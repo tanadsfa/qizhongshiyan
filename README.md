@@ -24,3 +24,13 @@
 ![image](https://github.com/tanadsfa/qizhongshiyan/blob/main/image/06.png)
 
 ![image](https://github.com/tanadsfa/qizhongshiyan/blob/main/image/07.png)
+
+5.使用SharedPreferences更换背景：
+
+![image](https://github.com/tanadsfa/qizhongshiyan/blob/main/image/08.png)
+
+![image](https://github.com/tanadsfa/qizhongshiyan/blob/main/image/09.png)
+
+改变后（浅紫色）：
+
+![image](https://github.com/tanadsfa/qizhongshiyan/blob/main/image/10.png)
