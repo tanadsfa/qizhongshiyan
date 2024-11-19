@@ -9,6 +9,7 @@
 ![image](https://github.com/tanadsfa/qizhongshiyan/blob/main/image/04.png)
 
 3.笔记按内容多少分类（少的在上面）：
+
 默认为按时间排序：
 
 ![image](https://github.com/tanadsfa/qizhongshiyan/blob/main/image/05.png)
