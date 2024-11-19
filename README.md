@@ -4,9 +4,10 @@
 
 2.查询功能：
 
-![image]([3](https://github.com/tanadsfa/qizhongshiyan/blob/main/image/03.png))
+![image](https://github.com/tanadsfa/qizhongshiyan/blob/main/image/03.png)
 
 ![image](https://github.com/tanadsfa/qizhongshiyan/blob/main/image/04.png)
+
 3.笔记按内容多少分类（少的在上面）：
 默认为按时间排序：
 
