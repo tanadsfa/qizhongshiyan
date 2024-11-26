@@ -38,10 +38,14 @@
 
 详细实现过程
 1. NoteList界面中笔记条目增加时间戳显示
+
 修改的文件：
+
 res/layout/noteslist_item.xml
 NotesList.java
+
 修改步骤：
+
 1.1在 res/layout/noteslist_item.xml 中为时间戳添加一个 TextView：
 
 <TextView
@@ -59,8 +63,10 @@ NotesList.java
 
 2. 查询功能
 修改的文件：
+
 activity_notes_list.xml
 NotesList.java
+
 修改步骤：
 
 2.1在 activity_notes_list.xml 中添加 SearchView：
@@ -96,6 +102,7 @@ NotePadProvider.java
 NotesList.java
 
 修改步骤
+
 4.1修改 loadNotes 方法：在查询条件中增加 LIMIT 3，当用户选择“最近打开”选项时，按修改时间倒序排列，并限制为 3 条笔记。
 4.2修改 onOptionsItemSelected 方法：添加一个菜单选项“最近打开”，调用 loadNotes 方法，并设置排序条件为修改时间。
 4.3修改菜单资源文件：
@@ -104,10 +111,12 @@ NotesList.java
 
 5. 使用SharedPreferences更换背景
 修改的文件：
+
 note_editor.xml
 NoteEditor.java
 
 修改步骤：
+
 5.1在 note_editor.xml 中为背景设置默认属性。
 5.2在 NoteEditor.java 中实现背景颜色存储与加载：使用 SharedPreferences 保存用户选择的颜色，在 onCreate 中加载颜色并应用。
 5.3添加颜色选择对话框：使用 AlertDialog 显示颜色列表，保存用户选择的颜色到 SharedPreferences。
