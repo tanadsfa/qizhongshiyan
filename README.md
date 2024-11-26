@@ -1,6 +1,6 @@
-android期中实验：
+#android期中实验：
 
-基本功能：
+##基本功能：
 
 1.NoteList界面中笔记条目增加时间戳显示
 
@@ -14,7 +14,7 @@ android期中实验：
 
 5.使用SharedPreferences更换背景
 
-实验结果展示：
+##实验结果展示：
 
 1.NoteList界面中笔记条目增加时间戳显示:
 
@@ -54,7 +54,7 @@ android期中实验：
 
 ![image](https://github.com/tanadsfa/qizhongshiyan/blob/main/image/10.png)
 
-详细实现过程
+##详细实现过程
 1. NoteList界面中笔记条目增加时间戳显示
 
 添加目的：为 Android 项目的 NotesList 界面添加时间戳功能，目的是展示每条笔记的修改时间。通过这一功能，用户能够清楚地看到每条笔记的最后更新时间，提升用户体验。
