@@ -449,9 +449,10 @@ noteslist_item.xml 文件负责定义每个笔记列表项的布局，其中包�
 
 ### 4. 最近打开功能
 
-允许用户查看最近访问过的笔记，并通过主菜单进行访问。用户点击笔记时，会更新该笔记的最近访问时间；点击“最近打开”菜单时，显示最近访问过的 3 个笔记。
+添加目的：允许用户查看最近访问过的笔记，并通过主菜单进行访问。用户点击笔记时，会更新该笔记的最近访问时间；点击“最近打开”菜单时，显示最近访问过的 3 个笔记。
 
 4.1 修改 NotePad 类
+
 无需改动 NotePad 类，因为它已经包含了 modified 字段（COLUMN_NAME_MODIFICATION_DATE），该字段用于记录最近打开的时间。
 
 4.2 修改 NotesList 类
@@ -601,6 +602,7 @@ private void loadNotes(String sortOrder) {
 
 ### 5 使用SharedPreferences更换背景
 
+添加目的：允许用户在编辑页面选择背景颜色，并将其保存至 SharedPreferences，确保背景颜色在应用重启后依然保持。
 
 4.5.1 修改 note_editor.xml
 
@@ -752,6 +754,7 @@ private void showColorPickerDialog() {
 ```
 
 5.3.4 添加 saveBackgroundColor 方法
+
 将选择的颜色保存到 SharedPreferences。
 
 ```
