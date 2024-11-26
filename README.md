@@ -511,7 +511,7 @@ private void loadNotes(String sortOrder) {
 }
 ```
 
-3.3 修改菜单 XML
+4.3.3 修改菜单 XML
 
 在 res/menu/list_options_menu.xml 文件中，添加“最近打开”菜单项，供用户点击查看最近访问的笔记。
 
@@ -529,7 +529,7 @@ private void loadNotes(String sortOrder) {
 </menu>
 ```
 
-3.4 修改布局文件
+4.3.4 修改布局文件
 
 在 res/layout/noteslist_item.xml 中，确保笔记列表项布局中有显示时间戳的 TextView，用于显示每个笔记的最后修改时间。
 
@@ -543,10 +543,10 @@ private void loadNotes(String sortOrder) {
     android:paddingTop="4dp" />
 ```
 
-5. 使用SharedPreferences更换背景
+5 使用SharedPreferences更换背景
 
 
-5.1 修改 note_editor.xml
+4.5.1 修改 note_editor.xml
 
 在 note_editor.xml 中，确保背景颜色可以动态更改，将默认背景设置为透明，以便动态应用颜色。
 
@@ -576,7 +576,7 @@ private SharedPreferences sharedPreferences;
 private static final String PREF_NAME = "NotePadPreferences"; // 存储偏好设置名称
 ```
 
-2.2 修改 onCreate 方法
+5.2.2 修改 onCreate 方法
 
 在 onCreate 方法中，添加加载背景颜色的逻辑。
 
