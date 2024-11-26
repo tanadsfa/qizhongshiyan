@@ -7,7 +7,7 @@
 
 在 NotesList.java 中，修改 PROJECTION 数组，添加时间戳字段 COLUMN_NAME_MODIFICATION_DATE：
 
-
+```
 private static final String[] PROJECTION = new String[] {
     NotePad.Notes._ID, // 0
     NotePad.Notes.COLUMN_NAME_TITLE, // 1
@@ -45,12 +45,12 @@ private static final String[] PROJECTION = new String[] {
         android:paddingTop="2dp"
     />
 </LinearLayout>
-
+```
 1.3 更新适配器，绑定时间戳字段到 TextView
 
 在 NotesList.java 文件的 onCreate() 方法中，修改 SimpleCursorAdapter，将时间戳字段映射到布局中的 TextView。
 
-
+```
 String[] dataColumns = {
     NotePad.Notes.COLUMN_NAME_TITLE, 
     NotePad.Notes.COLUMN_NAME_MODIFICATION_DATE  // 新增时间戳字段
@@ -69,11 +69,12 @@ SimpleCursorAdapter adapter = new SimpleCursorAdapter(
     viewIDs
 );
 setListAdapter(adapter);
+```
 
 1.4 格式化时间戳为可读的日期格式
  
 为了让时间戳更易于理解，需要将其转换为用户友好的日期格式。我们使用 SimpleDateFormat 来格式化时间戳，并设置时区为中国北京时间。
-
+```
 adapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
     @Override
     public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
@@ -93,11 +94,13 @@ adapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
         return false;  // 其他字段交由默认绑定处理
     }
 });
+```
 
 1.5 更新数据库插入和更新逻辑
 
 在笔记插入和更新时，需要确保时间戳字段被正确设置。在 NotePadProvider.java 中的 insert 和 update 方法中加入逻辑，以确保每次插入或更新时，COLUMN_NAME_MODIFICATION_DATE 字段会被更新为当前时间。
 
+```
 // 在 NotePadProvider.java 中的 insert 方法中
 if (!values.containsKey(NotePad.Notes.COLUMN_NAME_MODIFICATION_DATE)) {
     values.put(NotePad.Notes.COLUMN_NAME_MODIFICATION_DATE, System.currentTimeMillis());
@@ -105,6 +108,7 @@ if (!values.containsKey(NotePad.Notes.COLUMN_NAME_MODIFICATION_DATE)) {
 
 // 在 update 方法中，将修改日期更新为当前时间
 values.put(NotePad.Notes.COLUMN_NAME_MODIFICATION_DATE, System.currentTimeMillis());
+```
 
 1.6 结果：
 
@@ -120,6 +124,7 @@ values.put(NotePad.Notes.COLUMN_NAME_MODIFICATION_DATE, System.currentTimeMillis
 
 在 NotesList.java 的 onCreate 方法中动态创建 SearchView，并将其添加到 ListView 的头部。
 
+```
 @Override
 protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -156,12 +161,13 @@ protected void onCreate(Bundle savedInstanceState) {
     // 原有的查询和适配器设置代码
     ...
 }
-
+```
 
 2.2 实现 searchNotes 方法
 
 在 NotesList.java 中添加 searchNotes 方法，用于根据用户输入的关键字查询笔记标题和内容。使用 ContentResolver.query() 方法查询数据库，并动态更新列表。
 
+```
 private void searchNotes(String query) {
     // 定义查询条件，搜索标题或内容中包含关键字的笔记
     String selection = NotePad.Notes.COLUMN_NAME_TITLE + " LIKE ? OR " +
@@ -180,22 +186,26 @@ private void searchNotes(String query) {
     // 更新适配器的数据
     ((SimpleCursorAdapter) getListAdapter()).changeCursor(cursor);
 }
+```
 
 2.3 确保 PROJECTION 常量包含查询所需的字段
 
 PROJECTION 常量中应包含笔记的标题 (COLUMN_NAME_TITLE) 和内容 (COLUMN_NAME_NOTE) 字段，以便能够查询和显示笔记的标题和内容。
 
+```
 private static final String[] PROJECTION = new String[] {
     NotePad.Notes._ID,
     NotePad.Notes.COLUMN_NAME_TITLE,
     NotePad.Notes.COLUMN_NAME_NOTE,
     NotePad.Notes.COLUMN_NAME_MODIFICATION_DATE // 如果需要显示时间戳
 };
+```
 
 2.4 管理 Cursor 的生命周期
 
 确保在 onDestroy 方法中关闭旧的 Cursor，以避免内存泄漏。
 
+```
 @Override
 protected void onDestroy() {
     super.onDestroy();
@@ -204,6 +214,7 @@ protected void onDestroy() {
         cursor.close();
     }
 }
+```
 2.5结果
 
 通过实现上述功能，成功地在 NotesList 界面上添加了笔记查询功能。用户可以在 SearchView 中输入关键字，实时查询笔记的标题或内容，并动态更新列表显示。当用户输入时，系统会根据查询条件在数据库中查找匹配的笔记，并在界面上显示结果。
@@ -216,6 +227,7 @@ protected void onDestroy() {
 
 为了支持排序功能，我们需要在布局文件中添加一个按钮用于切换排序方式，以及一个 SearchView 搜索框用于过滤笔记。
 
+```
 <!-- activity_notes_list.xml -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -244,11 +256,13 @@ protected void onDestroy() {
         android:layout_height="wrap_content"/>
 
 </LinearLayout>
+```
 
 3.2 按钮功能实现
 
 按钮 button_sort_by_size 负责切换排序方式。点击该按钮时，调用 toggleSortOrder() 方法来切换排序方式，并更新按钮文本。
 
+```
 sortBySizeButton = findViewById(R.id.button_sort_by_size);
 sortBySizeButton.setOnClickListener(new View.OnClickListener() {
     @Override
@@ -256,12 +270,13 @@ sortBySizeButton.setOnClickListener(new View.OnClickListener() {
         toggleSortOrder(); // 切换排序方式
     }
 });
+```
 
 3.3 排序切换逻辑
 
 toggleSortOrder() 方法根据当前排序状态切换排序方式，更新按钮文本，并调用 loadNotes() 方法重新加载数据：
 
-
+```
 private void toggleSortOrder() {
     if (isSortedByContentSize) {
         loadNotes(NotePad.Notes.DEFAULT_SORT_ORDER); // 默认按时间排序
@@ -272,11 +287,13 @@ private void toggleSortOrder() {
     }
     isSortedByContentSize = !isSortedByContentSize; // 切换排序状态
 }
+```
 
 3.4 数据加载与排序
 
 loadNotes() 方法负责加载笔记数据，根据传入的 sortOrder 参数（按时间或按内容大小）查询笔记数据，并将查询结果显示在列表中：
 
+```
 private void loadNotes(String sortOrder) {
 
     // 获取启动此 Activity 的 Intent
@@ -340,12 +357,13 @@ private void loadNotes(String sortOrder) {
 
     setListAdapter(adapter);  // 将适配器绑定到列表视图
 }
+```
 
 3.5 列表项布局
 
 noteslist_item.xml 文件负责定义每个笔记列表项的布局，其中包含了笔记标题和时间戳（显示笔记的最后修改时间）：
 
-
+```
 <!-- noteslist_item.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -367,6 +385,7 @@ noteslist_item.xml 文件负责定义每个笔记列表项的布局，其中包�
         android:textSize="12sp"
         android:textColor="#888888" />
 </LinearLayout>
+```
 
 3.6 总结：
 
@@ -376,15 +395,16 @@ noteslist_item.xml 文件负责定义每个笔记列表项的布局，其中包�
 
 允许用户查看最近访问过的笔记，并通过主菜单进行访问。用户点击笔记时，会更新该笔记的最近访问时间；点击“最近打开”菜单时，显示最近访问过的 3 个笔记。
 
-3.1 修改 NotePad 类
+4.1 修改 NotePad 类
 无需改动 NotePad 类，因为它已经包含了 modified 字段（COLUMN_NAME_MODIFICATION_DATE），该字段用于记录最近打开的时间。
 
-3.2 修改 NotesList 类
-3.2.1 更新笔记的 modified 字段
+4.2 修改 NotesList 类
+
+4.2.1 更新笔记的 modified 字段
+
 在 onListItemClick() 方法中，每次用户打开笔记时，更新该笔记的 modified 字段为当前的时间戳。
 
-java
-复制代码
+```
 @Override
 protected void onListItemClick(ListView l, View v, int position, long id) {
     // 构建笔记的 URI
@@ -398,11 +418,13 @@ protected void onListItemClick(ListView l, View v, int position, long id) {
     // 打开笔记编辑界面
     startActivity(new Intent(Intent.ACTION_EDIT, uri));
 }
-3.2.2 在主菜单中添加“最近打开”选项
+```
+
+4.2.2 在主菜单中添加“最近打开”选项
+
 在 onOptionsItemSelected() 方法中处理“最近打开”选项，当点击时调用 loadNotes() 方法加载并显示最近打开的笔记，排序按 modified 字段倒序。
 
-java
-复制代码
+```
 @Override
 public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
@@ -421,11 +443,13 @@ public boolean onOptionsItemSelected(MenuItem item) {
             return super.onOptionsItemSelected(item);
     }
 }
-3.2.3 修改 loadNotes() 方法
+```
+
+4.2.3 修改 loadNotes() 方法
+
 loadNotes() 方法需要根据传入的排序字段加载笔记，并对“最近打开的笔记”进行数量限制。通过在查询中添加 LIMIT 3，确保返回最多 3 条笔记。
 
-java
-复制代码
+```
 private void loadNotes(String sortOrder) {
     Intent intent = getIntent();
 
@@ -485,11 +509,13 @@ private void loadNotes(String sortOrder) {
 
     setListAdapter(adapter);
 }
+```
+
 3.3 修改菜单 XML
+
 在 res/menu/list_options_menu.xml 文件中，添加“最近打开”菜单项，供用户点击查看最近访问的笔记。
 
-xml
-复制代码
+```
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menu_add"
@@ -501,11 +527,13 @@ xml
         android:title="最近打开"
         android:showAsAction="never" />
 </menu>
+```
+
 3.4 修改布局文件
+
 在 res/layout/noteslist_item.xml 中，确保笔记列表项布局中有显示时间戳的 TextView，用于显示每个笔记的最后修改时间。
 
-xml
-复制代码
+```
 <TextView
     android:id="@+id/note_timestamp"
     android:layout_width="match_parent"
@@ -513,15 +541,16 @@ xml
     android:textSize="12sp"
     android:textColor="#808080"
     android:paddingTop="4dp" />
+```
 
 5. 使用SharedPreferences更换背景
 
 
-1. 修改 note_editor.xml
+5.1 修改 note_editor.xml
+
 在 note_editor.xml 中，确保背景颜色可以动态更改，将默认背景设置为透明，以便动态应用颜色。
 
-xml
-复制代码
+```
 <?xml version="1.0" encoding="utf-8"?>
 <view xmlns:android="http://schemas.android.com/apk/res/android"
     class="com.example.android.notepad.NoteEditor$LinedEditText"
@@ -535,19 +564,23 @@ xml
     android:gravity="top"
     android:textSize="22sp"
     android:capitalize="sentences" />
-2. 修改 NoteEditor 类
-2.1 添加 SharedPreferences 支持
+```
+5.2 修改 NoteEditor 类
+
+5.2.1 添加 SharedPreferences 支持
+
 在 NoteEditor 类中添加 SharedPreferences 的初始化和动态背景颜色加载逻辑。
 
-java
-复制代码
+```
 private SharedPreferences sharedPreferences;
 private static final String PREF_NAME = "NotePadPreferences"; // 存储偏好设置名称
+```
+
 2.2 修改 onCreate 方法
+
 在 onCreate 方法中，添加加载背景颜色的逻辑。
 
-java
-复制代码
+```
 @Override
 protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -593,31 +626,38 @@ protected void onCreate(Bundle savedInstanceState) {
         mOriginalContent = savedInstanceState.getString(ORIGINAL_CONTENT);
     }
 }
-2.3 添加 loadBackgroundColor 方法
+```
+
+5.2.3 添加 loadBackgroundColor 方法
+
 从 SharedPreferences 中加载颜色，并将背景颜色应用到编辑框。
 
-java
-复制代码
+```
 private void loadBackgroundColor() {
     // 从 SharedPreferences 加载颜色，如果没有设置则默认为白色
     String color = sharedPreferences.getString("note_background_color", "#FFFFFF");
     mText.setBackgroundColor(Color.parseColor(color));
 }
-3. 添加颜色选择功能
-3.1 修改菜单资源文件
+```
+
+5.3 添加颜色选择功能
+
+5.3.1 修改菜单资源文件
+
 在 res/menu/editor_options_menu.xml 中添加一个菜单项，用于触发颜色选择功能。
 
-xml
-复制代码
+```
 <item
     android:id="@+id/menu_set_background_color"
     android:title="选择背景颜色"
     android:showAsAction="never" />
-3.2 修改 onOptionsItemSelected 方法
+```
+
+5.3.2 修改 onOptionsItemSelected 方法
+
 在 NoteEditor 类中，添加对新菜单项的处理：
 
-java
-复制代码
+```
 @Override
 public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
@@ -628,11 +668,13 @@ public boolean onOptionsItemSelected(MenuItem item) {
             return super.onOptionsItemSelected(item);
     }
 }
-3.3 添加 showColorPickerDialog 方法
+```
+
+5.3.3 添加 showColorPickerDialog 方法
+
 实现一个简单的颜色选择对话框，并将用户选择的颜色存储到 SharedPreferences。
 
-java
-复制代码
+```
 private void showColorPickerDialog() {
     // 颜色代码和中文描述
     final String[] colors = {"#FFFFFF", "#FFEBEE", "#E3F2FD", "#E8F5E9", "#FFFDE7", "#F3E5F5"};
@@ -651,19 +693,18 @@ private void showColorPickerDialog() {
     });
     builder.create().show();
 }
-3.4 添加 saveBackgroundColor 方法
+```
+
+5.3.4 添加 saveBackgroundColor 方法
 将选择的颜色保存到 SharedPreferences。
 
-
+```
 private void saveBackgroundColor(String color) {
     SharedPreferences.Editor editor = sharedPreferences.edit();
     editor.putString("note_background_color", color);
     editor.apply();
 }
-
-
-
-
+```
 
 1.NoteList界面中笔记条目增加时间戳显示:
 
