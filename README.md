@@ -71,14 +71,13 @@ NotesList.java
     android:layout_height="wrap_content"
     android:queryHint="搜索笔记" />
 
-2.2在 NotesList.java 中，设置查询逻辑：
-		在 onCreate 中为 SearchView 添加监听器。
-		实现 searchNotes() 方法，根据查询条件动态更新 Cursor。
+2.2在 NotesList.java 中，设置查询逻辑：在 onCreate 中为 SearchView 添加监听器，实现 searchNotes() 方法，根据查询条件动态更新 Cursor。
 
 3. 笔记按内容多少分类
 修改的文件：
 activity_notes_list.xml
 NotesList.java
+
 修改步骤：
 
 3.1在布局中增加一个排序按钮：
@@ -89,41 +88,28 @@ NotesList.java
     android:layout_height="wrap_content"
     android:text="按内容大小排序" />
 
-3.2在 NotesList.java 中实现排序逻辑：
-		添加一个 toggleSortOrder() 方法，用于切换排序方式。
-		在 loadNotes() 中根据 sortOrder 参数动态加载排序数据。
+3.2在 NotesList.java 中实现排序逻辑：添加一个 toggleSortOrder() 方法，用于切换排序方式，在 loadNotes() 中根据 sortOrder 参数动态加载排序数据。
 
 4. 最近打开功能
 修改的文件：
 NotePadProvider.java
 NotesList.java
+
 修改步骤
-4.1修改 loadNotes 方法：
-	在查询条件中增加 LIMIT 3。
-	当用户选择“最近打开”选项时，按修改时间倒序排列，并限制为 3 条笔记。
-4.2修改 onOptionsItemSelected 方法：
-	添加一个菜单选项“最近打开”。
-	调用 loadNotes 方法，并设置排序条件为修改时间。
+4.1修改 loadNotes 方法：在查询条件中增加 LIMIT 3，当用户选择“最近打开”选项时，按修改时间倒序排列，并限制为 3 条笔记。
+4.2修改 onOptionsItemSelected 方法：添加一个菜单选项“最近打开”，调用 loadNotes 方法，并设置排序条件为修改时间。
 4.3修改菜单资源文件：
 	在菜单文件中添加“最近打开”选项。
-4.4验证功能：
-	点击“最近打开”时，确保显示最近 3 条打开的笔记。
-	笔记按修改时间倒序排列。
-	保持其他功能（如新增、编辑笔记和默认排序）正常运行。
+4.4验证功能：点击“最近打开”时，确保显示最近 3 条打开的笔记，笔记按修改时间倒序排列，保持其他功能（如新增、编辑笔记和默认排序）正常运行。
 
 5. 使用SharedPreferences更换背景
 修改的文件：
 note_editor.xml
 NoteEditor.java
+
 修改步骤：
-
-5.1在 note_editor.xml 中为背景设置默认属性：
-
-5.0在 NoteEditor.java 中实现背景颜色存储与加载：
-	使用 SharedPreferences 保存用户选择的颜色。
-	在 onCreate 中加载颜色并应用。
-5.3添加颜色选择对话框：
-	使用 AlertDialog 显示颜色列表。
-	保存用户选择的颜色到 SharedPreferences。
+5.1在 note_editor.xml 中为背景设置默认属性。
+5.2在 NoteEditor.java 中实现背景颜色存储与加载：使用 SharedPreferences 保存用户选择的颜色，在 onCreate 中加载颜色并应用。
+5.3添加颜色选择对话框：使用 AlertDialog 显示颜色列表，保存用户选择的颜色到 SharedPreferences。
 
 
