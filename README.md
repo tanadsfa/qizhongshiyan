@@ -41,8 +41,7 @@
 
 修改的文件：
 
-res/layout/noteslist_item.xml
-NotesList.java
+res/layout/noteslist_item.xml    NotesList.java
 
 修改步骤：
 
@@ -64,8 +63,7 @@ NotesList.java
 2. 查询功能
 修改的文件：
 
-activity_notes_list.xml
-NotesList.java
+activity_notes_list.xml      NotesList.java
 
 修改步骤：
 
@@ -81,8 +79,7 @@ NotesList.java
 
 3. 笔记按内容多少分类
 修改的文件：
-activity_notes_list.xml
-NotesList.java
+activity_notes_list.xml     NotesList.java
 
 修改步骤：
 
@@ -98,8 +95,7 @@ NotesList.java
 
 4. 最近打开功能
 修改的文件：
-NotePadProvider.java
-NotesList.java
+NotePadProvider.java    NotesList.java
 
 修改步骤
 
@@ -112,8 +108,7 @@ NotesList.java
 5. 使用SharedPreferences更换背景
 修改的文件：
 
-note_editor.xml
-NoteEditor.java
+note_editor.xml     NoteEditor.java
 
 修改步骤：
 
