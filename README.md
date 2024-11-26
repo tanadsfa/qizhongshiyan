@@ -41,7 +41,7 @@
 
 修改的文件：
 
-res/layout/noteslist_item.xml    NotesList.java
+res/layout/noteslist_item.xml、NotesList.java
 
 修改步骤：
 
@@ -61,9 +61,10 @@ res/layout/noteslist_item.xml    NotesList.java
 
 
 2. 查询功能
+
 修改的文件：
 
-activity_notes_list.xml      NotesList.java
+activity_notes_list.xml、NotesList.java
 
 修改步骤：
 
@@ -78,8 +79,10 @@ activity_notes_list.xml      NotesList.java
 2.2在 NotesList.java 中，设置查询逻辑：在 onCreate 中为 SearchView 添加监听器，实现 searchNotes() 方法，根据查询条件动态更新 Cursor。
 
 3. 笔记按内容多少分类
+
 修改的文件：
-activity_notes_list.xml     NotesList.java
+
+activity_notes_list.xml、NotesList.java
 
 修改步骤：
 
@@ -94,10 +97,12 @@ activity_notes_list.xml     NotesList.java
 3.2在 NotesList.java 中实现排序逻辑：添加一个 toggleSortOrder() 方法，用于切换排序方式，在 loadNotes() 中根据 sortOrder 参数动态加载排序数据。
 
 4. 最近打开功能
-修改的文件：
-NotePadProvider.java    NotesList.java
 
-修改步骤
+修改的文件：
+
+NotePadProvider.java 、NotesList.java
+
+修改步骤：
 
 4.1修改 loadNotes 方法：在查询条件中增加 LIMIT 3，当用户选择“最近打开”选项时，按修改时间倒序排列，并限制为 3 条笔记。
 4.2修改 onOptionsItemSelected 方法：添加一个菜单选项“最近打开”，调用 loadNotes 方法，并设置排序条件为修改时间。
@@ -106,9 +111,10 @@ NotePadProvider.java    NotesList.java
 4.4验证功能：点击“最近打开”时，确保显示最近 3 条打开的笔记，笔记按修改时间倒序排列，保持其他功能（如新增、编辑笔记和默认排序）正常运行。
 
 5. 使用SharedPreferences更换背景
+
 修改的文件：
 
-note_editor.xml     NoteEditor.java
+note_editor.xml、NoteEditor.java
 
 修改步骤：
 
