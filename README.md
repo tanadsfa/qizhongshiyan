@@ -30,7 +30,7 @@
 
 默认为按时间排序：
 
-![image](https://github.com/tanadsfa/qizhongshiyan/blob/main/image/05.png)
+![image](https://github.com/tanadsfa/qizhongshiyan/blob/main/image/01.png)
 
 点击"按内容大小排序"
 
